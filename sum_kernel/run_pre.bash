@@ -6,7 +6,7 @@
 # set this to your directory which contains all event kernel directories
 outputs_kernel_directory="/lscratch/users/magnoni/SPECFEM3D/trunk_update/in_out_files/DATABASES_MPI"
 # set the model num and optionally the step factor
-model="m01_04"
+model="m01_04_pre"
 
 ###########################################################
 
