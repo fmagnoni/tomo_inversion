@@ -33,6 +33,8 @@ In a subdirectory sum_kernel/
    To obtain summed and preconditioned kernels launch
    > ./run_pre.bash
    
+NB. The hessian kernels used as preconditioner are calculated during the adjoint simulation together with the other kernels if APPROXIMATE_HESS_KL = .true. in constants.h.
+   
    
 
 Combine summed kernels (w and w/o preconditioning) into .mesh files
@@ -117,7 +119,7 @@ In the directory of specfem3d
 3. in the Par_file set : 
     NPROC
     LOCAL_PATH to the directory where the proc000***_external_mesh.bin and proc000***_attenuation.vtk (if attenuation is on) for the OLD model are (usually in_out_files/DATABASES_MPI)
-    SAVE_MESH_FILES to true if you want *vp_new.bin *vs_new.bin…and the corresponding *.vtk, otherwise set to false (proc000***_external_mesh.bin and proc000***_attenuation.bin will be written anyway)
+    SAVE_MESH_FILES=true if you want *vp_new.bin *vs_new.bin…and the corresponding *.vtk, otherwise set to false (proc000***_external_mesh.bin and proc000***_attenuation.bin will be written anyway)
 
 4. check that the proc000***_external_mesh.bin and proc000***_attenuation.vtk for the OLD model are in in_out_files/DATABASES_MPI/
 
@@ -140,7 +142,6 @@ In the directory of specfem3d
 
 8. compile from the maindir 
     > make model_update
-
 
 9. lauch 
     > qsub go_model_update.bash
