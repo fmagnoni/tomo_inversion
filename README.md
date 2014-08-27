@@ -1,14 +1,55 @@
 tomo_inversion
 ==============
 
-Routines to update the initial model and process the sensitivity kernels
-(based on the code downloaded in 2011)
+Steps to perform a tomographic inversion iteration
+Routines to update the initial model and process the sensitivity kernels are based on the code downloaded in 2011
+
+
+
+Forward simulation
+------------------
+
+In the directory of specfem3d:
+
+1. in the Par_file set
+SIMULATION_TYPE=1
+SAVE_FORWARD=false
+
+2. set the user parameters in go_solver.bash
+
+3. launch
+> qsub go_solver.bash
+
+
+
+The obtained synthetics are processed together with the observed data.
+FLEXWIN is used to select the windows.
+measure_adj is used to calculate the measurements, misfit functions and adjoint sources.
+Adjoint sources for different period bands are combined.
+
+
+
+Forward+Adjoint simulation
+--------------------------
+
+In the directory of specfem3d:
+
+1. put the directories of the adjoint sources for each event in a directory
+in_out_files/SEM
+
+2. set the user parameters in go_solver_adj_src.bash
+
+3. set APPROXIMATE_HESS_KL = .true. in constants.h to calculate also the hessian kernels used as preconditioner.
+
+4. launch
+   > qsub go_solver_adj_src.bash
+
 
 
 Sum Kernels
 -----------
 
-In a subdirectory sum_kernel/
+In a subdirectory sum_kernel/ :
 
 1. copy file SPECFEM3D/trunk_update/src/shared/constants.h 
    over to:  src/constants.h
@@ -33,16 +74,14 @@ In a subdirectory sum_kernel/
    To obtain summed and preconditioned kernels launch
    > ./run_pre.bash
    
-NB. The hessian kernels used as preconditioner are calculated during the adjoint simulation together with the other kernels if APPROXIMATE_HESS_KL = .true. in constants.h.
-   
-   
+      
 
 Combine summed kernels (w and w/o preconditioning) into .mesh files
 -----------------------------------------------------------------
 
 Check that in an input dir (e.g., sum_kernel/OUPUT_SUM/$model/$kernel_name) the kernel files *_kernel.bin are present
 
-In the directory of specfem3d
+In the directory of specfem3d:
 
 1. in the Par_file set LOCAL_PATH at the path where the proc*external_mesh.bin of the considered model are
 
@@ -65,7 +104,7 @@ Smooth summed kernels (w and w/o preconditioning) and combine them into .mesh fi
 
 Check that in an input dir (e.g., sum_kernel/OUPUT_SUM/$model/$kernel_name) the kernel files *_kernel.bin are present and create an output dir for the smoothed kernels (e.g., sum_kernel/OUTPUT_SUM_SMOOTH) 
 
-In the directory of specfem3d
+In the directory of specfem3d:
 
 1. in the Par_file set LOCAL_PATH at the path where the proc*external_mesh.bin of the considered model are
 
@@ -88,13 +127,14 @@ In the directory of specfem3d
 (to combine low resolution smoothed kernels just write 0 istead of 1 as fifth argument passed to xcombine_vol_data in go_smooth_all.bash)
 
 
+
 Model Update
 ------------
 
 Takes isotropic model and isotropic kernels and makes a steepest descent model update
 The new models vp, vs, rho and the new *external_mesh.bin are then computed from the old ones, assuming that the gradients/kernels relate relative model perturbations dln(m/m0) to traveltime/multitaper measurements.
 
-In the directory of specfem3d
+In the directory of specfem3d:
 
 1. setup in go_model_update.bash  :
     numnodes
@@ -145,6 +185,22 @@ In the directory of specfem3d
 
 9. lauch 
     > qsub go_model_update.bash
+    
+    
+
+Misfit Function Calculation
+---------------------------
+
+In the directory with the output of measure_adj for the considered events :
+ 
+1. set the user parameters in misfit_func.bash
+
+2. launch
+   > misfit_func.bash
+   
+   Produces files: 
+     ${compon}_${period}_${model}_TTchi_norm_src that contain the misfit function for the given category
+     total_chi_norm_${model} that contains the overall misfit function
 
 
 
