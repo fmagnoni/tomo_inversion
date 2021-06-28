@@ -7,6 +7,7 @@ Steps to perform a tomographic inversion iteration (so far steepest descent, no 
 
 
 1. execute_iteration_from_templ.sh
+
 prepares inversion structure and creates dir
 iteartion_*/
 based on template dir template_structure/
@@ -15,6 +16,7 @@ then launches:
 	1.1 create_tar.sh
 
 	1.2 iteration_*/execute_forward_adjoint.sh
+		
 		which launches:
 	
 		1.2.1 iteration_*/adv_start.sh
