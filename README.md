@@ -2,7 +2,6 @@ tomo_inversion
 ==============
 
 Steps to perform a tomographic inversion iteration
-Routines to update the initial model and process the sensitivity kernels are based on the code downloaded in 2011
 
 
 
