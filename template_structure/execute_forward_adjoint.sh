@@ -72,48 +72,51 @@ do
 mv $F ../full_$F
 done
 
+######COMMENTED OUT, VERY SPECIFIC FOR IMAGINE_IT
 
-cd ${BRIDGE_MSUB_PWD}/CMTs_2
-rm misfit_value.txt
-remove_eastadria.py
-runipy misfit.ipynb
+# cd ${BRIDGE_MSUB_PWD}/CMTs_2
+# rm misfit_value.txt
+# remove_eastadria.py
+# runipy misfit.ipynb
+#
+# cd ${BRIDGE_MSUB_PWD}/CMTs_3
+# rm misfit_value.txt
+# remove_eastadria.py
+# runipy misfit.ipynb
+#
+# cd ${BRIDGE_MSUB_PWD}/CMTs_4
+# rm misfit_value.txt
+# remove_eastadria.py
+# runipy misfit.ipynb
+#
+# cd ${BRIDGE_MSUB_PWD}/CMTs_5
+# rm misfit_value.txt
+# remove_eastadria.py
+# runipy misfit.ipynb
+#
+# cd ${BRIDGE_MSUB_PWD}
+#
+# while [ ! -f CMTs_5/misfit_value.txt ]
+# do
+#   sleep 60
+# done
+#
+# while [ ! -f CMTs_4/misfit_value.txt ]
+# do
+#   sleep 60
+# done
+#
+# while [ ! -f CMTs_3/misfit_value.txt ]
+# do
+#   sleep 60
+# done
+#
+# while [ ! -f CMTs_2/misfit_value.txt ]
+# do
+#   sleep 60
+# done
 
-cd ${BRIDGE_MSUB_PWD}/CMTs_3
-rm misfit_value.txt
-remove_eastadria.py
-runipy misfit.ipynb
-
-cd ${BRIDGE_MSUB_PWD}/CMTs_4
-rm misfit_value.txt
-remove_eastadria.py
-runipy misfit.ipynb
-
-cd ${BRIDGE_MSUB_PWD}/CMTs_5
-rm misfit_value.txt
-remove_eastadria.py 
-runipy misfit.ipynb
-
-cd ${BRIDGE_MSUB_PWD}
-
-while [ ! -f CMTs_5/misfit_value.txt ]
-do
-  sleep 60
-done
-
-while [ ! -f CMTs_4/misfit_value.txt ]
-do
-  sleep 60
-done
-
-while [ ! -f CMTs_3/misfit_value.txt ]
-do
-  sleep 60
-done
-
-while [ ! -f CMTs_2/misfit_value.txt ]
-do
-  sleep 60
-done
+######
 
 
 BEST_STEP=`get_best_steplength.py CMTs_?/misfit*txt`
