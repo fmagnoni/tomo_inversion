@@ -69,7 +69,7 @@ echo $RUN_DIR_A
 
 BASE=$PWD
 
-TEMPL="template_structure_s02"
+TEMPL="template_structure"
 TEMPL_F=${TEMPL}"/CMTs"
 TEMPL_A=${TEMPL}"/CMTs_adj"
 
